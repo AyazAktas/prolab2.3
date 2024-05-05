@@ -1,0 +1,57 @@
+<!-- doctor_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Doctors</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Doctor List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Adı</th>
+                <th>Soyadı</th>
+                <th>Uzmanlık Alanı</th>
+                <th>Çalıştığı Hastane</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for doctor in doctors %}
+            {% if doctor.idDoctor %}
+                <tr>
+                    <td>{{ doctor.idDoctor }}</td>
+                    <td>{{ doctor.AD }}</td>
+                    <td>{{ doctor.SOYAD }}</td>
+                    <td>{{ doctor.UzmanlikAlani }}</td>
+                    <td>{{ doctor.CalismaYeri }}</td>
+                    <td>
+                        <form action="{% url 'delete_doctor' doctor.idDoctor %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Sil</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+
+        </tbody>
+    </table>
+</body>
+</html>

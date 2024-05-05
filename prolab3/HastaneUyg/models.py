@@ -19,13 +19,17 @@ class Hasta(models.Model):
     cinsiyet=models.CharField('Cinsiyeti',max_length=1,default='',blank=True,null=False)
     telefonNo=models.TextField('Telefon Numarası',max_length=10,default='',blank=True,null=True)
     adres=models.TextField('Adres',max_length=3000,blank=False,null=False)
+    class Meta:
+        db_table = 'hastalar'
 
 class Randevu(models.Model):
     idRandevu=models.IntegerField(blank=True,null=True)
     randevuTarihi=models.DateField("Randevu Tarihi",auto_now_add=False,auto_now=False,blank=True,null=True)
     randevuSaati=models.DateTimeField("Randevu Saati",auto_now=False,auto_now_add=False,blank=True,null=True)
     idHasta=models.ForeignKey(Hasta,on_delete=models.CASCADE)
-    idDoctor = models.ForeignKey(Doctor, on_delete=models.CASCADE) 
+    idDoctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    class Meta:
+        db_table = 'randevular'
 
 
 class TibbiRaporlar(models.Model):
@@ -35,9 +39,13 @@ class TibbiRaporlar(models.Model):
     idHasta=models.ForeignKey(Hasta,on_delete=models.CASCADE)
     idDoctor = models.ForeignKey(Doctor, on_delete=models.CASCADE) 
     raporIcerigi=models.TextField(max_length=4000,default='',blank=True)
+    class Meta:
+        db_table = 'tibbiraporlar'
 
 class Yonetici(models.Model):
     idYonetici=models.IntegerField(blank=True,null=True)
+    class Meta:
+        db_table = 'yonetici'
 
 
 

@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
+from .models import Doctor
+
 
 from .forms import DoctorForm
 def home(request):
@@ -53,3 +55,14 @@ def doctor_create(request):
     else:
         form = DoctorForm()
     return render(request, 'doctor_create.html', {'form': form})
+
+
+
+def list_doctors(request):
+    doctors = Doctor.objects.all()
+    return render(request, 'list_doctors.html', {'doctors': doctors})
+
+def delete_doctor(request, doctor_id):
+    doctor = Doctor.objects.get(idDoctor=doctor_id)
+    doctor.delete()
+    return redirect('list_doctors')
