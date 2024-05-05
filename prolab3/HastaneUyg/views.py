@@ -4,10 +4,12 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-from .models import Doctor
+from .models import Doctor, Hasta
+from django.shortcuts import get_object_or_404
 
 
-from .forms import DoctorForm
+
+from .forms import DoctorForm,PatientForm
 def home(request):
     return render(request, 'home.html')
 
@@ -66,3 +68,25 @@ def delete_doctor(request, doctor_id):
     doctor = Doctor.objects.get(idDoctor=doctor_id)
     doctor.delete()
     return redirect('list_doctors')
+
+
+def patient_create(request):
+    if request.method == 'POST':
+        form = PatientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_page')
+    else:
+        form = PatientForm()
+    return render(request, 'patient_create.html', {'form': form})
+
+
+def list_patients(request):
+    patients = Hasta.objects.all()
+    return render(request, 'list_patients.html', {'patients': patients})
+
+
+def delete_patient(request, patient_id):
+    patient = get_object_or_404(Hasta, idHasta=patient_id)
+    patient.delete()
+    return redirect('list_patients')

@@ -28,4 +28,7 @@ urlpatterns = [
     path('doctor/create/', views.doctor_create, name='doctor_create'),
     path('list_doctors/', views.list_doctors, name='list_doctors'),
     path('doctor/<int:doctor_id>/delete/', views.delete_doctor, name='delete_doctor'),
+    path('patient/create/', views.patient_create, name='patient_create'),
+    path('list_patients/', views.list_patients, name='list_patients'),
+    path('patient/<int:patient_id>/delete/', views.delete_patient, name='delete_patient'),
 ]
