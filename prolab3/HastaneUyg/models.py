@@ -37,3 +37,15 @@ class TibbiRaporlar(models.Model):
 
 class Yonetici(models.Model):
     idYonetici=models.IntegerField(blank=True,null=True)
+
+
+from django.contrib.auth.models import AbstractUser
+
+class Doctor(AbstractUser):
+    pass
+
+class Patient(AbstractUser):
+    pass
+
+class Administrator(AbstractUser):
+    pass
