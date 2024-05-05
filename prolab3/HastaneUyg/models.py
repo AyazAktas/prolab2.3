@@ -2,13 +2,14 @@ from django.db import models
 
 # Create your models here.
 class Doctor(models.Model):
-    idDoctor=models.IntegerField(blank=True,null=True)
-    doctorName=models.TextField("Adı:",max_length=100,default='',blank=True)
-    doctorLastName=models.TextField("Soyadı:",max_length=100,default='',blank=True)
-    uzmanlikAlani=models.TextField('Uzmanlık Alanı', max_length=120, default='', blank=True, null=True)
-    calismaYeri=models.TextField('Çalıştığı Hastane', max_length=120, default='', blank=True, null=True)
+    idDoctor = models.BigIntegerField("Doktor ID'si",default='',blank=True,primary_key=True)
+    AD=models.TextField("Adı:",max_length=100,default='',blank=True)
+    SOYAD=models.TextField("Soyadı:",max_length=100,default='',blank=True)
+    UzmanlikAlani=models.TextField('Uzmanlık Alanı', max_length=120, default='', blank=True, null=True)
+    CalismaYeri=models.TextField('Çalıştığı Hastane', max_length=120, default='', blank=True, null=True)
 
-
+    class Meta:
+        db_table = 'doktorlar'
 
 class Hasta(models.Model):
     idHasta=models.IntegerField(blank=True,null=True)

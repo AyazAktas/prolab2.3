@@ -19,9 +19,11 @@ from django.urls import path
 from HastaneUyg import views
 
 urlpatterns = [
+    path('admin/login/', views.admin_login, name='admin_login'),  # admin/login/ URL'sini önce ekleyin
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('doctor/login/', views.doctor_login, name='doctor_login'),
     path('patient/login/', views.patient_login, name='patient_login'),
-    path('admin/login/', views.admin_login, name='admin_login'),
+    path('admin_page/', views.admin_page, name='admin_page'),
+    path('doctor/create/', views.doctor_create, name='doctor_create'),
 ]
