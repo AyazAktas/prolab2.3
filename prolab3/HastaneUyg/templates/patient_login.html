@@ -54,8 +54,10 @@
         {% if error_message %}
             <p style="color: red;">{{ error_message }}</p>
         {% endif %}
-        <input type="text" name="username" placeholder="Kullanıcı Adı" required autofocus><br>
-        <input type="password" name="password" placeholder="Şifre" required><br>
+        <!-- Hasta adı ve soyadı birleşimi kullanıcı adı olarak kullanılacak -->
+        <input type="text" name="hasta_ad_soyad" placeholder="Adı ve Soyadı" required autofocus><br>
+        <!-- ID şifre olarak kullanılacak -->
+        <input type="password" name="hasta_id" placeholder="ID" required><br>
         <input type="submit" value="Giriş Yap">
         <a href="{% url 'patient_register' %}" class="register-btn">Kayıt Ol</a> <!-- Added register button -->
     </form>

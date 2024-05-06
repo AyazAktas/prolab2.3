@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasta Sayfası</title>
+</head>
+<body>
+    <h2>Hoş Geldiniz, {{ hasta.hastaAdi }} {{ hasta.hastaSoyadi }}</h2>
+    <ul>
+
+        <li>Randevularım</li>
+        <li>Raporlarım</li>
+        <li><a href="{% url 'patient_info' hasta.idHasta %}">Bilgilerimi Düzenle</a></li>
+    </ul>
+</body>
+</html>
