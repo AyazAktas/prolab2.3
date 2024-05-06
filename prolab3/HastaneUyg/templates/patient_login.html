@@ -30,7 +30,7 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
-        input[type="submit"] {
+        input[type="submit"], .register-btn {
             background-color: #007bff;
             color: #fff;
             border: none;
@@ -38,8 +38,11 @@
             padding: 10px 20px;
             cursor: pointer;
             font-size: 16px;
+            text-decoration: none; /* Added for anchor tag */
+            display: inline-block; /* Added for anchor tag */
+            margin-right: 10px; /* Added for spacing */
         }
-        input[type="submit"]:hover {
+        input[type="submit"]:hover, .register-btn:hover {
             background-color: #0056b3;
         }
     </style>
@@ -54,6 +57,7 @@
         <input type="text" name="username" placeholder="Kullanıcı Adı" required autofocus><br>
         <input type="password" name="password" placeholder="Şifre" required><br>
         <input type="submit" value="Giriş Yap">
+        <a href="{% url 'patient_register' %}" class="register-btn">Kayıt Ol</a> <!-- Added register button -->
     </form>
 </body>
 </html>

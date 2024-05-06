@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from .models import Doctor, Hasta
 from django.shortcuts import get_object_or_404
-
+from .forms import PatientRegistrationForm
 
 
 from .forms import DoctorForm,PatientForm
@@ -41,6 +41,19 @@ def admin_login(request):
     else:
         # GET isteği ise sadece giriş formunu göster
         return render(request, 'admin_login.html')
+
+def patient_register(request):
+    if request.method == 'POST':
+        form = PatientRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect to a success page or any other page you want
+            return redirect('patient_login')
+    else:
+        form = PatientRegistrationForm()
+    return render(request, 'patient_register.html', {'form': form})
+
+
 
 @login_required
 def admin_page(request):
