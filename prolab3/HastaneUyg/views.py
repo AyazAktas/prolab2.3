@@ -4,7 +4,7 @@ from django.db import connection
 from django.shortcuts import redirect, render, get_object_or_404
 
 from .forms import (DoctorForm, PatientForm, PatientRegistrationForm)
-from .models import Hasta
+from .models import Doctor
 
 
 def home(request):
@@ -13,11 +13,25 @@ def home(request):
 
 def doctor_login(request):
     # Doktor giriş işlemleri
-    return render(request, 'doctor_login.html')
+    if request.method == 'POST':
+        doktor_ad_soyad = request.POST.get('doktor_ad_soyad')
+        doktor_id = request.POST.get('doktor_id')
 
-def patient_login(request):
-    # Hasta giriş işlemleri
-    return render(request, 'patient_login.html')
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM doktorlar WHERE idDoctor = %s AND AD = %s AND SOYAD = %s", [doktor_id, doktor_ad_soyad.split()[0], ' '.join(doktor_ad_soyad.split()[1:])])
+            doctor = cursor.fetchone()
+
+        if doctor:
+            return redirect('doctor_page', doktor_id=doctor[1])
+        error_message = 'Geçersiz kullanıcı adı veya şifre.'
+        return render(request, 'doctor_login.html', {'error_message': error_message})
+    else:
+        return render(request, 'doctor_login.html')
+
+def doctor_page(request, doktor_id):
+    doctor = get_object_or_404(Doctor, idDoctor=doktor_id)
+    return render(request, 'doctor_page.html', {'doctor': doctor})
+
 
 
 def admin_login(request):

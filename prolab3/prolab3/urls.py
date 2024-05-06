@@ -35,5 +35,6 @@ urlpatterns = [
     path('patient/register/', views.patient_register, name='patient_register'),
     path('patient_page/<int:id>/', views.patient_page, name='patient_page'),
     path('patient_info/<int:hasta_id>/', views.patient_info, name='patient_info'),
+    path('doctor_page/<int:doktor_id>/', views.doctor_page, name='doctor_page'),
 
 ]
