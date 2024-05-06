@@ -30,28 +30,29 @@
                 <th>Soyadı</th>
                 <th>Uzmanlık Alanı</th>
                 <th>Çalıştığı Hastane</th>
+                <th>İşlem</th>
             </tr>
         </thead>
+
         <tbody>
-        {% for doctor in doctors %}
-            {% if doctor.idDoctor %}
+            {% for doctor in doctors %}
                 <tr>
-                    <td>{{ doctor.idDoctor }}</td>
-                    <td>{{ doctor.AD }}</td>
-                    <td>{{ doctor.SOYAD }}</td>
-                    <td>{{ doctor.UzmanlikAlani }}</td>
-                    <td>{{ doctor.CalismaYeri }}</td>
+                    <td>{{ doctor.1 }}</td>
+                    <td>{{ doctor.2 }}</td>
+                    <td>{{ doctor.3 }}</td>
+                    <td>{{ doctor.4 }}</td>
+                    <td>{{ doctor.5 }}</td>
                     <td>
-                        <form action="{% url 'delete_doctor' doctor.idDoctor %}" method="post">
+                        <form action="{% url 'delete_doctor' doctor.0 %}" method="post">
                             {% csrf_token %}
                             <button type="submit">Sil</button>
                         </form>
                     </td>
                 </tr>
-            {% endif %}
-        {% endfor %}
-
+            {% endfor %}
         </tbody>
+
+
     </table>
 </body>
 </html>

@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from HastaneUyg import views
 
+
 urlpatterns = [
     path('admin/login/', views.admin_login, name='admin_login'),  # admin/login/ URL'sini önce ekleyin
     path('admin/', admin.site.urls),
@@ -30,7 +31,7 @@ urlpatterns = [
     path('doctor/<int:doctor_id>/delete/', views.delete_doctor, name='delete_doctor'),
     path('patient/create/', views.patient_create, name='patient_create'),
     path('list_patients/', views.list_patients, name='list_patients'),
-    path('patient/<int:patient_id>/delete/', views.delete_patient, name='delete_patient'),
+    path('patient/<int:hasta_id>/delete/', views.delete_patient, name='delete_patient'),
     path('patient/register/', views.patient_register, name='patient_register'),
     path('patient_page/<int:id>/', views.patient_page, name='patient_page'),
     path('patient_info/<int:hasta_id>/', views.patient_info, name='patient_info'),

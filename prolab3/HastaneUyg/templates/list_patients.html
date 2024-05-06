@@ -1,4 +1,4 @@
-<!-- doctor_list.html -->
+<!-- patient_list.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +21,7 @@
     </style>
 </head>
 <body>
-    <h1>Patient List</h1>
+    <h1>Hasta Listesi</h1>
     <table>
         <thead>
             <tr>
@@ -32,29 +32,27 @@
                 <th>Cinsiyet</th>
                 <th>Telefon Numarası</th>
                 <th>Adres</th>
+                <th>İşlem</th>
             </tr>
         </thead>
         <tbody>
         {% for patient in patients %}
-            {% if patient.idHasta %}
-                <tr>
-                    <td>{{ patient.idHasta }}</td>
-                    <td>{{ patient.hastaAdi }}</td>
-                    <td>{{ patient.hastaSoyadi }}</td>
-                    <td>{{ patient.dogumTarihi }}</td>
-                    <td>{{ patient.cinsiyet }}</td>
-                    <td>{{ patient.telefonNo }}</td>
-                    <td>{{ patient.adres }}</td>
-                    <td>
-                        <form action="{% url 'delete_patient' patient.idHasta %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit">Sil</button>
-                        </form>
-                    </td>
-                </tr>
-            {% endif %}
+            <tr>
+                <td>{{ patient.1 }}</td>
+                <td>{{ patient.2 }}</td>
+                <td>{{ patient.3 }}</td>
+                <td>{{ patient.4 }}</td>
+                <td>{{ patient.5 }}</td>
+                <td>{{ patient.6 }}</td>
+                <td>{{ patient.7 }}</td>
+                <td>
+                    <form action="{% url 'delete_patient' patient.0 %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Sil</button>
+                    </form>
+                </td>
+            </tr>
         {% endfor %}
-
         </tbody>
     </table>
 </body>
