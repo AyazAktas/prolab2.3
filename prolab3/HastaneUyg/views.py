@@ -104,7 +104,7 @@ def delete_patient(request, patient_id):
     patient.delete()
     return redirect('list_patients')
 
-@login_required
+
 
 def patient_login(request):
     if request.method == 'POST':
@@ -132,9 +132,15 @@ def patient_login(request):
     else:
         return render(request, 'patient_login.html')
 
+from django.shortcuts import get_object_or_404
+
 def patient_page(request, id):
-    hasta = Hasta.objects.get(idHasta=id)
+    hasta = get_object_or_404(Hasta, idHasta=id)
     return render(request, 'patient_page.html', {'hasta': hasta})
+
+
+
+from django.shortcuts import redirect
 
 def patient_info(request, hasta_id):
     # Hasta bilgilerini getir
@@ -145,15 +151,10 @@ def patient_info(request, hasta_id):
         form = PatientForm(request.POST, instance=hasta)
         if form.is_valid():
             form.save()
-            # Hasta bilgileri başarıyla güncellendikten sonra patient_page'e yönlendir
-            return redirect('patient_page', id=hasta_id)
+            # Hasta bilgileri başarıyla güncellendikten sonra doğru URL'ye yönlendir
+            return redirect('patient_page', id=hasta_id)  # hasta_id'yi doğru şekilde iletiyoruz
     else:
         # GET isteği ise formu göster
         form = PatientForm(instance=hasta)
-
-        # Doğum tarihi ve cinsiyet alanlarını formda devre dışı bırak
-        form.fields['idHasta'].disabled=True
-        form.fields['dogumTarihi'].disabled = True
-        form.fields['cinsiyet'].disabled = True
 
     return render(request, 'patient_info.html', {'form': form, 'hasta': hasta})
