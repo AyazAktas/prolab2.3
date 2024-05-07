@@ -4,14 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasta Sayfası</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="patient_page.css">
 </head>
 <body>
-    <h2>Hoş Geldiniz, {{ hasta.hastaAdi }} {{ hasta.hastaSoyadi }}</h2>
-    <ul>
-
-        <li>Randevularım</li>
-        <li>Raporlarım</li>
-        <li><a href="{% url 'patient_info' hasta.idHasta %}">Bilgilerimi Düzenle</a></li>
-    </ul>
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-10">
+                <h2>Hoş Geldiniz, {{ hasta.hastaAdi }} {{ hasta.hastaSoyadi }}</h2>
+            </div>
+            <div class="col-md-3">
+                <a href="{% url 'logout' %}" class="btn btn-danger">Çıkış</a>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <div class="card mb-4">
+                    <img src="raporlar_resmi.jpg" class="card-img-top" alt="Raporlar">
+                    <div class="card-body">
+                        <h5 class="card-title">Raporlarım</h5>
+                    </div>
+                    <a href="{% url 'raporlar' %}" class="stretched-link"></a>
+                </div>
+                <div class="card">
+                    <img src="randevular_resmi.jpg" class="card-img-top" alt="Randevular">
+                    <div class="card-body">
+                        <h5 class="card-title">Randevu Al</h5>
+                    </div>
+                    <a href="{% url 'randevu_al' %}" class="stretched-link"></a>
+                </div>
+                <div class="card">
+                    <img src="bilgilerimi_duzenle_resmi.jpg" class="card-img-top" alt="Bilgilerimi Düzenle">
+                    <div class="card-body">
+                        <h5 class="card-title">Bilgilerimi Düzenle</h5>
+                    </div>
+                    <a href="{% url 'patient_info' hasta.idHasta %}" class="stretched-link"></a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <h4 class="mb-4">Randevularım</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tarih</th>
+                            <th scope="col">Saat</th>
+                            <th scope="col">Doktor</th>
+                            <th scope="col">Poliklinik</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Buraya Python veya Django kodu eklenecek -->
+                        <!-- Örnek veri: -->
+                        <tr>
+                            <td>01.05.2024</td>
+                            <td>09:00</td>
+                            <td>Dr. Ahmet Yılmaz</td>
+                            <td>Genel Cerrahi</td>
+                        </tr>
+                        <tr>
+                            <td>03.05.2024</td>
+                            <td>11:30</td>
+                            <td>Dr. Ayşe Demir</td>
+                            <td>Kulak Burun Boğaz</td>
+                        </tr>
+                        <!-- Döngü ile dinamik olarak veri eklemesi yapılabilir -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
