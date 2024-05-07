@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randevu Al</title>
+</head>
+<body>
+    <h2>Randevu Al</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="randevu_tarihi">Randevu Tarihi:</label><br>
+        <input type="date" id="randevu_tarihi" name="randevu_tarihi" required><br>
+        <label for="randevu_saat">Randevu Saati:</label><br>
+        <input type="time" id="randevu_saat" name="randevu_saat" required><br>
+        <label for="doktor">Doktor Seçin:</label><br>
+        <select id="doktor" name="doktor_id" required>
+            {% for doktor in doktorlar %}
+                <option value="{{ doktor.idDoctor }}">{{ doktor.AD }} {{ doktor.SOYAD }}</option>
+            {% endfor %}
+        </select><br>
+        <input type="submit" value="Randevu Al">
+    </form>
+</body>
+</html>

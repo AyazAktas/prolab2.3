@@ -1,9 +1,10 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.core.checks import messages
 from django.db import connection
 from django.shortcuts import redirect, render, get_object_or_404
 
-from .forms import (DoctorForm, PatientForm, PatientRegistrationForm)
+from .forms import (DoctorForm, PatientForm, PatientRegistrationForm, RandevuForm)
 from .models import Doctor
 
 
@@ -226,3 +227,44 @@ def patient_info(request, hasta_id):
         })
 
     return render(request, 'patient_info.html', {'form': form, 'hasta': hasta})
+
+
+from django.shortcuts import render, redirect
+from .models import Randevu, Hasta, Doctor
+from django.utils import timezone
+from datetime import datetime
+
+
+def randevu_al(request, hasta_id):
+    if request.method == 'POST':
+        # Formdan gelen verileri al
+        randevu_tarihi = request.POST.get('randevu_tarihi')
+        randevu_saat = request.POST.get('randevu_saat')
+        doktor_id = request.POST.get('doktor_id')  # Kullanıcının seçtiği doktor ID'si
+
+        # Doktorun varlığını kontrol et
+        try:
+            doktor = Doctor.objects.get(idDoctor=doktor_id)
+        except Doctor.DoesNotExist:
+            return HttpResponse("Geçersiz doktor ID.")
+
+        # Randevu saati için uygun formata dönüştürme
+        randevu_saati_str = f"{randevu_tarihi} {randevu_saat}"
+        try:
+            randevu_saati = datetime.strptime(randevu_saati_str, '%Y-%m-%d %H:%M')
+        except ValueError:
+            return HttpResponse("Geçersiz randevu saati formatı.")
+
+        # Hasta bilgisini al
+        hasta = Hasta.objects.get(idHasta=hasta_id)
+
+        # Yeni bir Randevu oluştur ve kaydet
+        randevu = Randevu(randevuTarihi=randevu_tarihi, randevuSaati=randevu_saati, idHasta=hasta, idDoctor=doktor)
+        randevu.save()
+
+        # Randevu alındıktan sonra başka bir sayfaya yönlendir
+        return redirect('patient_page', id=hasta_id)
+    else:
+        # Tüm doktorları al ve kullanıcıya seçenek olarak sun
+        doktorlar = Doctor.objects.all()
+        return render(request, 'randevu_al.html', {'doktorlar': doktorlar})

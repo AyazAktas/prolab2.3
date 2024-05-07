@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from .models import Doctor,Hasta
+from .models import Doctor,Hasta,Randevu
 
 class DoctorForm(forms.ModelForm):
     class Meta:
@@ -26,3 +26,11 @@ class PatientRegistrationForm(forms.ModelForm):
             'dogumTarihi': forms.DateInput(attrs={'type': 'date'}),
             'telefonNo': forms.TextInput(attrs={'size': '10'})
         }
+
+from django import forms
+from .models import Randevu
+
+class RandevuForm(forms.ModelForm):
+    class Meta:
+        model = Randevu
+        fields = ['randevuTarihi', 'randevuSaati', 'idDoctor', 'idHasta']
