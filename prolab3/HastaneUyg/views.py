@@ -234,6 +234,13 @@ from .models import Randevu, Hasta, Doctor
 from django.utils import timezone
 from datetime import datetime
 
+from django.shortcuts import render, redirect, HttpResponse
+from .models import Randevu, Doctor, Hasta
+from datetime import datetime
+
+from django.shortcuts import render, redirect, HttpResponse
+from datetime import datetime
+from .models import Randevu, Doctor, Hasta
 
 def randevu_al(request, hasta_id):
     if request.method == 'POST':
@@ -256,10 +263,13 @@ def randevu_al(request, hasta_id):
             return HttpResponse("Geçersiz randevu saati formatı.")
 
         # Hasta bilgisini al
-        hasta = Hasta.objects.get(idHasta=hasta_id)
+        try:
+            hasta = Hasta.objects.get(idHasta=hasta_id)
+        except Hasta.DoesNotExist:
+            return HttpResponse("Geçersiz hasta ID.")
 
         # Yeni bir Randevu oluştur ve kaydet
-        randevu = Randevu(randevuTarihi=randevu_tarihi, randevuSaati=randevu_saati, idHasta=hasta, idDoctor=doktor)
+        randevu = Randevu(randevuTarihi=randevu_tarihi, randevu_saati=randevu_saat, doktor_id=doktor_id, hasta_id=hasta_id)
         randevu.save()
 
         # Randevu alındıktan sonra başka bir sayfaya yönlendir
@@ -268,3 +278,24 @@ def randevu_al(request, hasta_id):
         # Tüm doktorları al ve kullanıcıya seçenek olarak sun
         doktorlar = Doctor.objects.all()
         return render(request, 'randevu_al.html', {'doktorlar': doktorlar})
+
+
+def randevularim(request, hasta_id):
+    # Hasta ID'sine göre randevuları filtrele
+    randevular = Randevu.objects.filter(hasta_id=hasta_id)
+
+    # Randevuların her biri için ilgili doktor bilgisini ekleyin
+    for randevu in randevular:
+        randevu.doktor = Doctor.objects.get(idDoctor=randevu.doktor_id)
+
+    # Randevuları HTML sayfasına aktar ve göster
+    return render(request, 'randevularim.html', {'randevular': randevular})
+
+from django.shortcuts import get_object_or_404, redirect
+from .models import Randevu
+
+def randevu_sil(request, randevu_id):
+    randevu = get_object_or_404(Randevu, randevuId=randevu_id)
+    if request.method == 'POST':
+        randevu.delete()
+        return redirect('randevularim', hasta_id=randevu.hasta_id)

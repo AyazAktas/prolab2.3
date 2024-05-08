@@ -22,16 +22,16 @@ class Hasta(models.Model):
     class Meta:
         db_table = 'hastalar'
 
+
 class Randevu(models.Model):
-    idRandevu=models.IntegerField(blank=True,null=True)
-    randevuTarihi=models.DateField("Randevu Tarihi",auto_now_add=False,auto_now=False,blank=True,null=True)
-    randevuSaati=models.DateTimeField("Randevu Saati",auto_now=False,auto_now_add=False,blank=True,null=True)
-    idHasta=models.ForeignKey(Hasta,on_delete=models.CASCADE)
-    idDoctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    randevuId = models.AutoField(primary_key=True)
+    randevuTarihi = models.DateField("Randevu Tarihi", auto_now_add=False, auto_now=False, blank=True, null=True)
+    randevu_saati = models.CharField("Randevu Saati", max_length=45, blank=True, null=True)
+    doktor_id = models.IntegerField()  # Doktorun ID'sini tutacak sütun
+    hasta_id = models.IntegerField()  # Hasta ID'sini tutacak sütun
+
     class Meta:
         db_table = 'randevular'
-
-
 class TibbiRaporlar(models.Model):
     idRapor=models.IntegerField(blank=True,null=True)
     raporTarihi=models.DateField("Rapor Tarihi",auto_now_add=False,auto_now=False,blank=True,null=True)

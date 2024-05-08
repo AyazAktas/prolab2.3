@@ -16,7 +16,7 @@
         <label for="doktor">Doktor Seçin:</label><br>
         <select id="doktor" name="doktor_id" required>
             {% for doktor in doktorlar %}
-                <option value="{{ doktor.idDoctor }}">{{ doktor.AD }} {{ doktor.SOYAD }}</option>
+                <option value="{{ doktor.idDoctor }}">{{ doktor.AD }}  {{ doktor.SOYAD }} {{doktor.UzmanlikAlani}} {{doktor.CalismaYeri}}</option>
             {% endfor %}
         </select><br>
         <input type="submit" value="Randevu Al">

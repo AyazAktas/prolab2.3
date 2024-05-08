@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hastanın Randevuları</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Hastanın Randevuları</h2>
+    <table>
+        <tr>
+            <th>Randevu Tarihi</th>
+            <th>Randevu Saati</th>
+            <th>Doktor Adı</th>
+            <th>Doktor Soyadı</th>
+            <th>Polikinlik</th>
+        </tr>
+        {% if randevular %}
+            {% for randevu in randevular %}
+                <tr>
+                    <td>{{ randevu.randevuTarihi|date:"M. d, Y" }}</td>
+                    <td>{{ randevu.randevu_saati }}</td>
+                    <td>{{ randevu.doktor.AD }}</td>
+                    <td>{{ randevu.doktor.SOYAD }}</td>
+                    <td>{{randevu.doktor.UzmanlikAlani}}</td>
+                    <td>
+                        <form action="{% url 'randevu_sil' randevu.randevuId %}" method="post" onsubmit="return confirm('Bu randevuyu silmek istediğinizden emin misiniz?');">
+                            {% csrf_token %}
+                            <button type="submit">Sil</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="5">Hasta henüz randevu almamış.</td>
+            </tr>
+        {% endif %}
+    </table>
+</body>
+</html>

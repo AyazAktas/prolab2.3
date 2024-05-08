@@ -30,7 +30,8 @@ class PatientRegistrationForm(forms.ModelForm):
 from django import forms
 from .models import Randevu
 
+
 class RandevuForm(forms.ModelForm):
     class Meta:
         model = Randevu
-        fields = ['randevuTarihi', 'randevuSaati', 'idDoctor', 'idHasta']
+        fields = ['randevuTarihi', 'randevu_saati', 'hasta_id', 'doktor_id']
