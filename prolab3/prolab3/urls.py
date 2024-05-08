@@ -40,5 +40,4 @@ urlpatterns = [
     path('randevularim/<int:hasta_id>/', views.randevularim, name='randevularim'),
     path('randevu_sil/<int:randevu_id>/', views.randevu_sil, name='randevu_sil'),
 
-
 ]

@@ -131,19 +131,37 @@ from django.db import connection
 
  # Assuming PostgreSQL
 
+from django.db import IntegrityError
+
 def delete_doctor(request, doctor_id):
     if request.method == 'POST':
         cursor = connection.cursor()
 
         try:
+            # Check if the doctor has any appointments
+            cursor.execute("SELECT COUNT(*) FROM randevular WHERE doktor_id = %s", (doctor_id,))
+            appointment_count = cursor.fetchone()[0]
+
+            if appointment_count > 0:
+                # If the doctor has appointments, prevent deletion and display a message
+                return render(request, 'list_doctors.html', {'error': 'Doktorunuz randevusu olduğu için silinemez.'})
+
+            # If the doctor has no appointments, proceed with deletion
             cursor.execute("DELETE FROM doktorlar WHERE id = %s", (doctor_id,))
             connection.commit()
-            # Redirect to doctor list page (assuming you have a URL pattern for it)
+
+            # Redirect to doctor list page
             return redirect('list_doctors')
-        except Exception as e:
-            # Handle errors appropriately (e.g., log the error, return an error message)
-            print(f"Error deleting doctor: {e}")
+
+        except IntegrityError:
+            # If there is an integrity error (e.g., foreign key constraint violation), handle it appropriately
             return render(request, 'list_doctors.html', {'error': 'Doktor silinemedi.'})
+
+        except Exception as e:
+            # Handle other errors appropriately (e.g., log the error)
+            print(f"Error deleting doctor: {e}")
+            return render(request, 'list_doctors.html', {'error': 'Bir hata oluştu.'})
+
         finally:
             cursor.close()
             connection.close()

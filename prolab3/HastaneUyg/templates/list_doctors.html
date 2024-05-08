@@ -22,6 +22,15 @@
 </head>
 <body>
     <h1>Doctor List</h1>
+
+    <!-- Uyarı Mesajı -->
+    {% if error %}
+        <script>
+            alert("{{ error }}");
+        </script>
+    {% endif %}
+
+
     <table>
         <thead>
             <tr>
@@ -51,8 +60,6 @@
                 </tr>
             {% endfor %}
         </tbody>
-
-
     </table>
 </body>
 </html>
