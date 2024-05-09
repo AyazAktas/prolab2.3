@@ -41,4 +41,6 @@ urlpatterns = [
     path('randevu_sil/<int:randevu_id>/', views.randevu_sil, name='randevu_sil'),
     path('rapor_yazilabilir/<int:doktor_id>/', views.rapor_yazilabilir, name='rapor_yazilabilir'),
     path('rapor_yaz/<int:randevu_id>/', views.rapor_yaz, name='rapor_yaz'),
+    path('raporlarim/<int:hasta_id>/', views.raporlarim, name='raporlarim'),
+    path('raporlarim/pdf/<int:rapor_id>/', views.raporlarim_pdf, name='raporlarim_pdf'),
 ]

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raporlarım</title>
+</head>
+<body>
+    <h2>Raporlarım</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Rapor Tarihi</th>
+                <th>Uzmanlık Alanı</th>
+                <th>Hasta ID</th>
+                <th>Doktor ID</th>
+                <th>Rapor İçeriği</th>
+                <th>Randevu ID</th>
+                <th>PDF Dönüştür</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rapor in raporlar %}
+            <tr>
+                <td>{{ rapor.idRapor }}</td>
+                <td>{{ rapor.raporTarihi }}</td>
+                <td>{{ rapor.uzmanlikAlani }}</td>
+                <td>{{ rapor.hasta_id }}</td>
+                <td>{{ rapor.doktor_id }}</td>
+                <td>{{ rapor.rapor_icerigi }}</td>
+                <td>{{ rapor.randevunun_id }}</td>
+                <td>
+                    <form action="{% url 'raporlarim_pdf' rapor.idRapor %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">PDF Olarak İndir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

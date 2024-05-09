@@ -382,3 +382,51 @@ def rapor_yaz(request, randevu_id):
             "form": form,  # Formu template'e gönder
         },
     )
+from django.shortcuts import render
+from .models import TibbiRaporlar
+
+def raporlarim(request, hasta_id):
+    raporlar = TibbiRaporlar.objects.filter(hasta_id=hasta_id)
+    return render(request, 'raporlarim.html', {'raporlar': raporlar})
+
+
+# views.py
+
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from .models import TibbiRaporlar, Hasta, Doctor
+
+
+def raporlarim_pdf(request, rapor_id):
+    rapor = TibbiRaporlar.objects.get(idRapor=rapor_id)
+    hasta = Hasta.objects.get(idHasta=rapor.hasta_id)
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{hasta.hastaAdi}_{hasta.hastaSoyadi}_{rapor_id}.pdf"'
+
+    # Create PDF document
+    p = canvas.Canvas(response)
+
+    # Write report data to PDF
+    y = 800  # Initial y-coordinate
+    p.drawString(100, y, f"Rapor ID: {rapor.idRapor}")
+    p.drawString(100, y - 20, f"Tarih: {rapor.raporTarihi}")
+
+
+    # Get doctor details
+    doktor = Doctor.objects.get(idDoctor=rapor.doktor_id)
+
+    # Write doctor details to PDF
+    p.drawString(100, y - 60, f"Doktor: {doktor.AD} {doktor.SOYAD}")
+    p.drawString(100, y - 80, f"Hastane: {doktor.CalismaYeri}")
+    p.drawString(100, y - 40, f"Polikinlik / Hastanın Başvurduğu Bölüm: {rapor.uzmanlikAlani}")
+
+    # Write patient details to PDF
+    p.drawString(100, y - 100, f"Hasta Adı-Soyadı: {hasta.hastaAdi} {hasta.hastaSoyadi}")
+    p.drawString(100,y-120,f"Hasta ID'si:{hasta.idHasta}")
+
+    p.drawString(100, y - 140, f"İçerik: {rapor.rapor_icerigi}")
+    p.drawString(100, y - 160, f"Randevu ID: {rapor.randevunun_id}")
+
+    p.save()
+    return response
