@@ -1,15 +1,73 @@
-<!DOCTYPE html>
+{% load static %} <!-- Statik dosyaları yüklemek için bu satırı ekleyin -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasta Sayfası</title>
+    <title>Doktor Sayfası</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            width: 250px;
+            margin: 0 auto; /* Kartı ortala */
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #007bff;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        .card a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h2>Hoş Geldiniz, {{ doctor.AD }} {{ doctor.SOYAD }}</h2>
-    <ul>
-
-        <li><a href="{% url 'rapor_yazilabilir' doktor_id=doctor.idDoctor %}">Randevularım</a></li>
-    </ul>
+    <div class="container">
+        <h2>Hoş Geldiniz, Dr. {{ doctor.AD }} {{ doctor.SOYAD }}</h2>
+        <div class="card">
+            <img src="{% static 'randevular_resmi.jpg' %}" alt="Randevularım Resmi">
+            <a href="{% url 'rapor_yazilabilir' doktor_id=doctor.idDoctor %}">Randevuları Görüntüle</a>
+        </div>
+    </div>
 </body>
 </html>
