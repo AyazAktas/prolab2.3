@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapor Oluştur</title>
+</head>
+<body>
+    <h2>Rapor Oluştur</h2>
+    <h2>Rapor Yaz</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="hasta_id">Hasta ID:</label>
+        <input type="text" id="hasta_id" name="hasta_id" value="{{ randevu.hasta_id }}" readonly><br>
+        <label for="doktor_id">Doktor ID:</label>
+        <input type="text" id="doktor_id" name="doktor_id" value="{{ randevu.doktor_id }}" readonly><br>
+        <label for="raporTarihi">Rapor Tarihi:</label>
+        <input type="date" id="raporTarihi" name="raporTarihi"><br>
+        <label for="rapor_icerigi">Rapor İçeriği:</label>
+        <textarea id="rapor_icerigi" name="rapor_icerigi"></textarea><br>
+        <label for="uzmanlikAlani">Uzmanlık Alanı:</label>
+        <input type="text" id="uzmanlikAlani" name="uzmanlikAlani" value="{{ randevu.doktor.UzmanlikAlani }}"><br>
+        <label for="randevunun_id">Randevu ID:</label>
+        <input type="text" id="randevunun_id" name="randevunun_id" value="{{ randevu.pk }}" readonly><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

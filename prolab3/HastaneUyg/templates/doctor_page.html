@@ -9,8 +9,7 @@
     <h2>Hoş Geldiniz, {{ doctor.AD }} {{ doctor.SOYAD }}</h2>
     <ul>
 
-        <li>Randevularım</li>
-        <li>Raporlarım</li>
+        <li><a href="{% url 'rapor_yazilabilir' doktor_id=doctor.idDoctor %}">Randevularım</a></li>
     </ul>
 </body>
 </html>

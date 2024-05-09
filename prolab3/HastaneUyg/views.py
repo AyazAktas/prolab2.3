@@ -317,3 +317,68 @@ def randevu_sil(request, randevu_id):
     if request.method == 'POST':
         randevu.delete()
         return redirect('randevularim', hasta_id=randevu.hasta_id)
+
+
+
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Randevu, Hasta
+
+
+def rapor_yazilabilir(request, doktor_id):
+    randevular = Randevu.objects.filter(doktor_id=doktor_id)
+
+    for randevu in randevular:
+        randevu.hasta = Hasta.objects.get(idHasta=randevu.hasta_id)
+
+    return render(request, 'rapor_yazilabilir.html', {'randevular': randevular})
+from django.shortcuts import render, redirect
+from .forms import RaporForm
+from .models import Randevu
+
+
+from django.shortcuts import render, redirect
+from .models import Randevu,TibbiRaporlar
+from django.contrib import messages
+from datetime import datetime
+
+from django.shortcuts import get_object_or_404
+
+from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from .models import Randevu, Doctor, TibbiRaporlar
+from .forms import RaporForm
+
+def rapor_yaz(request, randevu_id):
+    """
+    Seçilen randevu için rapor yazma fonksiyonu.
+    """
+
+    randevu = get_object_or_404(Randevu, pk=randevu_id)
+    doktor_id = randevu.doktor_id
+    doctor = get_object_or_404(Doctor, pk=doktor_id)
+    hasta_id = randevu.hasta_id  # Hasta'nın ID'sine erişim
+
+    if request.method == "POST":
+        form = RaporForm(request.POST)  # Formu POST verileriyle oluştur
+        if form.is_valid():  # Form doğru şekilde doldurulduysa
+            uzmanlik_alani = doctor.UzmanlikAlani
+            rapor = form.save(commit=False)
+            rapor.doktor_id = doktor_id
+            rapor.hasta_id = hasta_id
+            rapor.uzmanlikAlani = uzmanlik_alani
+            rapor.save()
+            messages.success(request, "Rapor başarıyla gönderildi!")
+            # Başarılı gönderimden sonra başka bir sayfaya yönlendirme yapabilirsiniz
+        else:
+            # Form geçerli değil, hataları göster
+            print(form.errors)
+
+    return render(
+        request,
+        "rapor_yaz.html",
+        {
+            "randevu": randevu,
+            "hasta_id": hasta_id,
+            "form": form,  # Formu template'e gönder
+        },
+    )

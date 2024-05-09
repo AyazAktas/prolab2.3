@@ -39,5 +39,6 @@ urlpatterns = [
     path('randevu_al/<int:hasta_id>/', views.randevu_al, name='randevu_al'),
     path('randevularim/<int:hasta_id>/', views.randevularim, name='randevularim'),
     path('randevu_sil/<int:randevu_id>/', views.randevu_sil, name='randevu_sil'),
-
+    path('rapor_yazilabilir/<int:doktor_id>/', views.rapor_yazilabilir, name='rapor_yazilabilir'),
+    path('rapor_yaz/<int:randevu_id>/', views.rapor_yaz, name='rapor_yaz'),
 ]

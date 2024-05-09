@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tıbbi Rapor Yaz</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Aktif Randevularınız aşağıda gözükmektedir.</h2>
+    <h3>İstediğiniz randevuya rapor yazmak için randevuların yanında bulunan 'Rapor Yaz' butonuna tıklayınız.</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Randevu ID</th>
+                <th>Randevu Tarihi</th>
+                <th>Randevu Saati</th>
+                <th>Hasta Adı</th>
+                <th>Hasta Soyadı</th>
+                <th>Rapor Yaz</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for randevu in randevular %}
+            <tr>
+                <td>{{ randevu.randevuId }}</td>
+                <td>{{ randevu.randevuTarihi }}</td>
+                <td>{{ randevu.randevu_saati }}</td>
+                <td>{{ randevu.hasta.hastaAdi }}</td>
+                <td>{{ randevu.hasta.hastaSoyadi }}</td>
+                <td>
+                    <form action="{% url 'rapor_yaz' randevu_id=randevu.randevuId %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="randevu_id" value="{{ randevu.pk }}">
+                    <button type="submit">Rapor Yaz</button>
+                    </form>
+                 </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

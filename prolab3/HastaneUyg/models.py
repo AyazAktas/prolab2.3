@@ -33,15 +33,15 @@ class Randevu(models.Model):
     class Meta:
         db_table = 'randevular'
 class TibbiRaporlar(models.Model):
-    idRapor=models.IntegerField(blank=True,null=True)
-    raporTarihi=models.DateField("Rapor Tarihi",auto_now_add=False,auto_now=False,blank=True,null=True)
-    uzmanlikAlani=models.TextField('Uzmanlık Alanı', max_length=120, default='', blank=True, null=True)
-    idHasta=models.ForeignKey(Hasta,on_delete=models.CASCADE)
-    idDoctor = models.ForeignKey(Doctor, on_delete=models.CASCADE) 
-    raporIcerigi=models.TextField(max_length=4000,default='',blank=True)
+    idRapor = models.AutoField(primary_key=True)
+    raporTarihi = models.DateField(null=True)
+    uzmanlikAlani = models.TextField(null=True)
+    hasta_id = models.IntegerField()
+    doktor_id = models.IntegerField()
+    rapor_icerigi = models.TextField(null=True)
+    randevunun_id = models.IntegerField()
     class Meta:
         db_table = 'tibbiraporlar'
-
 class Yonetici(models.Model):
     idYonetici=models.IntegerField(blank=True,null=True)
     class Meta:
