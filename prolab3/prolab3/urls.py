@@ -43,4 +43,6 @@ urlpatterns = [
     path('rapor_yaz/<int:randevu_id>/', views.rapor_yaz, name='rapor_yaz'),
     path('raporlarim/<int:hasta_id>/', views.raporlarim, name='raporlarim'),
     path('raporlarim/pdf/<int:rapor_id>/', views.raporlarim_pdf, name='raporlarim_pdf'),
+    path('edit-doctor/<int:doctor_id>/', views.edit_doctor, name='edit_doctor'),
+    path('edit_patient/<int:hasta_id>/', views.edit_patient, name='edit_patient'),
 ]

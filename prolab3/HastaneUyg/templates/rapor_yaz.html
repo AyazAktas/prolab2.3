@@ -4,10 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rapor Oluştur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <h2>Rapor Oluştur</h2>
-    <h2>Rapor Yaz</h2>
     <form method="post">
         {% csrf_token %}
         <label for="hasta_id">Hasta ID:</label>
@@ -22,7 +79,7 @@
         <input type="text" id="uzmanlikAlani" name="uzmanlikAlani" value="{{ randevu.doktor.UzmanlikAlani }}"><br>
         <label for="randevunun_id">Randevu ID:</label>
         <input type="text" id="randevunun_id" name="randevunun_id" value="{{ randevu.pk }}" readonly><br>
-        <button type="submit">Submit</button>
+        <button type="submit">Kaydet</button>
     </form>
 </body>
 </html>

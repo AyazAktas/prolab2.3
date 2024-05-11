@@ -1,17 +1,78 @@
-<!-- welcome_admin.html -->
+<!-- admin_page.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoş Geldiniz</title>
+    <title>Admin Paneli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        ul li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        ul li:last-child {
+            margin-right: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .username {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hoş Geldiniz, {{ username }}</h1>
-    <a href="{% url 'doctor_create' %}">Doktor Ekle</a>
-    <a href="{% url 'list_doctors'%}">Doktorları Listele</a>
-    <a href="{% url 'patient_create' %}">Hasta Ekle</a>
-    <a href="{% url 'list_patients'%}">Hastaları Listele</a>
-    <!-- Diğer içerikler -->
+    <div class="container">
+        <h1>Admin Panel</h1>
+        <p class="username">Hoş Geldiniz, {{ username }}</p>
+        <ul>
+            <li><a href="{% url 'doctor_create' %}">Doktor Ekle</a></li>
+            <li><a href="{% url 'list_doctors' %}">Doktorları Listele</a></li>
+            <li><a href="{% url 'patient_create' %}">Hasta Ekle</a></li>
+            <li><a href="{% url 'list_patients' %}">Hastaları Listele</a></li>
+        </ul>
+    </div>
 </body>
 </html>

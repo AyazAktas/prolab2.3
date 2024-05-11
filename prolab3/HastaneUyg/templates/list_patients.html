@@ -6,54 +6,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Patients</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
+            margin-bottom: 20px;
         }
+
         th, td {
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
         }
+
         th {
             background-color: #f2f2f2;
+        }
+
+        th, td, button, a {
+            font-size: 14px;
+        }
+
+        button, a {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover, a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .edit-button {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        .edit-button:hover {
+            background-color: #45a049;
+        }
+
+        .delete-button {
+            background-color: #f44336;
+            color: #fff;
+        }
+
+        .delete-button:hover {
+            background-color: #d32f2f;
         }
     </style>
 </head>
 <body>
-    <h1>Hasta Listesi</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Adı</th>
-                <th>Soyadı</th>
-                <th>Doğum Tarihi</th>
-                <th>Cinsiyet</th>
-                <th>Telefon Numarası</th>
-                <th>Adres</th>
-                <th>İşlem</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for patient in patients %}
-            <tr>
-                <td>{{ patient.1 }}</td>
-                <td>{{ patient.2 }}</td>
-                <td>{{ patient.3 }}</td>
-                <td>{{ patient.4 }}</td>
-                <td>{{ patient.5 }}</td>
-                <td>{{ patient.6 }}</td>
-                <td>{{ patient.7 }}</td>
-                <td>
-                    <form action="{% url 'delete_patient' patient.0 %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Sil</button>
-                    </form>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container">
+        <h1>Hasta Listesi</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Adı</th>
+                    <th>Soyadı</th>
+                    <th>Doğum Tarihi</th>
+                    <th>Cinsiyet</th>
+                    <th>Telefon Numarası</th>
+                    <th>Adres</th>
+                    <th>İşlem</th>
+                    <th>İşlem</th> <!-- Düzenleme işlemi için sütun eklendi -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                    <tr>
+                        <td>{{ patient.1 }}</td>
+                        <td>{{ patient.2 }}</td>
+                        <td>{{ patient.3 }}</td>
+                        <td>{{ patient.4 }}</td>
+                        <td>{{ patient.5 }}</td>
+                        <td>{{ patient.6 }}</td>
+                        <td>{{ patient.7 }}</td>
+                        <td>
+                            <form action="{% url 'delete_patient' patient.0 %}" method="post">
+                                {% csrf_token %}
+                                <button class="delete-button" type="submit">Sil</button>
+                            </form>
+                        </td>
+                        <td>
+                            <a href="{% url 'edit_patient' patient.1 %}" class="edit-button">Düzenle</a> <!-- Düzenleme bağlantısı eklendi -->
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

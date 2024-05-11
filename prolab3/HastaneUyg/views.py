@@ -76,7 +76,48 @@ def admin_page(request):
     return render(request, 'admin_page.html', {'username': username})
 
 
+# views.py
 
+from django.shortcuts import render, get_object_or_404
+from .models import Doctor
+from .forms import DoctorForm
+
+# views.py
+
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Doctor
+from .forms import DoctorForm
+
+def edit_doctor(request, doctor_id):
+    doctor = get_object_or_404(Doctor, idDoctor=doctor_id)
+
+    if request.method == 'POST':
+        form = DoctorForm(request.POST, instance=doctor)
+        if form.is_valid():
+            form.save()
+            return redirect('list_doctors')  # Doktorlar listesi sayfasına yönlendir
+    else:
+        form = DoctorForm(instance=doctor)
+
+    return render(request, 'edit_doctor.html', {'form': form, 'doctor': doctor})
+
+def edit_patient(request, hasta_id):
+    # Hasta objesini al
+    hasta = get_object_or_404(Hasta, idHasta=hasta_id)
+
+    if request.method == 'POST':
+        # Formu POST verileriyle doldur
+        form = PatientForm(request.POST, instance=hasta)
+        if form.is_valid():
+            # Form doğru şekilde doldurulduysa, değişiklikleri kaydet
+            form.save()
+            # Başarılı güncelleme sonrasında başka bir sayfaya yönlendirme yapabilirsiniz
+            return redirect('patient_list')  # veya başka bir sayfa
+    else:
+        # GET isteği ise, formu hasta bilgileriyle doldur
+        form = PatientForm(instance=hasta)
+
+    return render(request, 'edit_patient.html', {'form': form})
 def doctor_create(request):
     if request.method == 'POST':
         form = DoctorForm(request.POST)
@@ -246,19 +287,6 @@ def patient_info(request, hasta_id):
 
     return render(request, 'patient_info.html', {'form': form, 'hasta': hasta})
 
-
-from django.shortcuts import render, redirect
-from .models import Randevu, Hasta, Doctor
-from django.utils import timezone
-from datetime import datetime
-
-from django.shortcuts import render, redirect, HttpResponse
-from .models import Randevu, Doctor, Hasta
-from datetime import datetime
-
-from django.shortcuts import render, redirect, HttpResponse
-from datetime import datetime
-from .models import Randevu, Doctor, Hasta
 
 def randevu_al(request, hasta_id):
     if request.method == 'POST':
