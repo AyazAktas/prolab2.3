@@ -1,17 +1,83 @@
-<!DOCTYPE html>
+{%load static%}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasta Sayfası</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: space-around; /* Kartları eşit aralıklarla dağıtır */
+            flex-wrap: wrap; /* Eğer kartlar sığmazsa, alt satıra geçmelerini sağlar */
+        }
+
+        .card {
+            width: 200px; /* Kart genişliği */
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Kartın gölgesi */
+        }
+
+        .card img {
+            width: 100px; /* Resim genişliği */
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            margin-top: 10px;
+        }
+
+        .card a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <h2>Hoş Geldiniz, {{ hasta.hastaAdi }} {{ hasta.hastaSoyadi }}</h2>
-    <ul>
-        <li><a href="{% url 'randevu_al' hasta.idHasta%}">Randevu Al</a></li>
-        <li><a href="{% url 'randevularim' hasta.idHasta %}">Randevularım</a></li>
-        <li><a href="{% url 'raporlarim' hasta.idHasta %}">Raporlarım</a></li>
-        <li><a href="{% url 'patient_info' hasta.idHasta %}">Bilgilerimi Düzenle</a></li>
-    </ul>
+    <div class="card-container">
+        <div class="card">
+            <img src="{% static 'randevular_resmi.jpg' %}" alt="Randevularım Resmi">
+            <div class="card-text"><a href="{% url 'randevu_al' hasta.idHasta  %}">Randevu Al</a></div>
+        </div>
+        <div class="card">
+            <img src="{% static 'randevular_resmi.jpg' %}" alt="Randevularım Resmi">
+            <div class="card-text"><a href="{% url 'randevularim' hasta.idHasta %}">Randevularım</a></div>
+        </div>
+        <div class="card">
+            <img src="{% static 'raporlar_resmi.jpg' %}" alt="Randevularım Resmi">
+            <div class="card-text"><a href="{% url 'raporlarim' hasta.idHasta %}">Raporlarım</a></div>
+        </div>
+        <div class="card">
+            <img src="{% static 'bilgilerimi_duzenle_resmi.jpg' %}" alt="Randevularım Resmi">
+            <div class="card-text"><a href="{% url 'patient_info' hasta.idHasta %}">Bilgilerimi Düzenle</a></div>
+        </div>
+    </div>
 </body>
 </html>

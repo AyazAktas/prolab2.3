@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from HastaneUyg import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -45,4 +47,4 @@ urlpatterns = [
     path('raporlarim/pdf/<int:rapor_id>/', views.raporlarim_pdf, name='raporlarim_pdf'),
     path('edit-doctor/<int:doctor_id>/', views.edit_doctor, name='edit_doctor'),
     path('edit_patient/<int:hasta_id>/', views.edit_patient, name='edit_patient'),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
