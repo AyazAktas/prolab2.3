@@ -1,14 +1,84 @@
-<!DOCTYPE html>
+{%load static%}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hastane Yönetim Sistemi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: space-around; /* Kartları eşit aralıklarla dağıtır */
+            flex-wrap: wrap; /* Eğer kartlar sığmazsa, alt satıra geçmelerini sağlar */
+        }
+
+        .card {
+            width: 200px; /* Kart genişliği */
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Kartın gölgesi */
+        }
+
+        .card img {
+            width: 100px; /* Resim genişliği */
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            margin-top: 10px;
+        }
+
+        .card a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 40px; /* Aşağıya boşluk bırak */
+        }
+    </style>
 </head>
 <body>
     <h1>Hastane Yönetim Sistemi</h1>
-    <a href="{% url 'doctor_login' %}">Doktor Girişi</a><br>
-    <a href="{% url 'patient_login' %}">Hasta Girişi</a><br>
-    <a href="{% url 'admin_login' %}">Yönetici Girişi</a><br>
+<div class="card-container">
+        <div class="card">
+            <img src="{% static 'medical.png' %}" alt="Hasta Girişi">
+            <div class="card-text"><a href="{% url 'patient_login' %}">Hasta Girişi</a><br></div>
+        </div>
+        <div class="card">
+            <img src="{% static 'doctor.png' %}" alt="Doktor Girişi">
+            <div class="card-text"><a href="{% url 'doctor_login' %}">Doktor Girişi</a><br></div>
+        </div>
+
+        <div class="card">
+            <img src="{% static 'employee.png' %}" alt="Yönetici Girişi">
+            <div class="card-text"><a href="{% url 'admin_login' %}">Yönetici Girişi</a><br></div>
+        </div>
+    </div>
 </body>
 </html>
