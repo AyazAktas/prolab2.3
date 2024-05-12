@@ -1,6 +1,6 @@
-# forms.py
+
 from django import forms
-from .models import Doctor,Hasta,Randevu
+from .models import Doctor,Hasta,Randevu,TibbiRaporlar
 
 class DoctorForm(forms.ModelForm):
     class Meta:
@@ -27,15 +27,13 @@ class PatientForm(forms.ModelForm):
 
 class PatientRegistrationForm(forms.ModelForm):
     class Meta:
-        model = Hasta
+        model=Hasta
         fields=['idHasta','hastaAdi','hastaSoyadi','dogumTarihi','cinsiyet','telefonNo','adres']
         widgets = {
             'dogumTarihi': forms.DateInput(attrs={'type': 'date'}),
+            'cinsiyet': forms.TextInput(attrs={'style': 'width: 50px' , 'size':'1'}),
             'telefonNo': forms.TextInput(attrs={'size': '10'})
         }
-
-from django import forms
-from .models import Randevu
 
 
 class RandevuForm(forms.ModelForm):
@@ -43,11 +41,6 @@ class RandevuForm(forms.ModelForm):
         model = Randevu
         fields = ['randevuTarihi', 'randevu_saati', 'hasta_id', 'doktor_id']
 
-
-from django import forms
-
-
-from .models import TibbiRaporlar
 
 class RaporForm(forms.ModelForm):
     class Meta:
