@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raporlarım</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Raporlarım</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Rapor Tarihi</th>
+                <th>Uzmanlık Alanı</th>
+                <th>Hasta ID</th>
+                <th>Doktor ID</th>
+                <th>Rapor İçeriği</th>
+                <th>Randevu ID</th>
+                <th>PDF Dönüştür</th>
+                <th>Düzenle</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rapor in raporlar %}
+            <tr>
+                <td>{{ rapor.idRapor }}</td>
+                <td>{{ rapor.raporTarihi }}</td>
+                <td>{{ rapor.uzmanlikAlani }}</td>
+                <td>{{ rapor.hasta_id }}</td>
+                <td>{{ rapor.doktor_id }}</td>
+                <td>{{ rapor.rapor_icerigi }}</td>
+                <td>{{ rapor.randevunun_id }}</td>
+                <td>
+                    <form action="{% url 'raporlarim_pdf' rapor.idRapor %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">PDF Olarak İndir</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{% url 'rapor_duzenle' rapor.idRapor %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Düzenle</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

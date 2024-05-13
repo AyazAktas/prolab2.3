@@ -42,10 +42,16 @@ class RandevuForm(forms.ModelForm):
         fields = ['randevuTarihi', 'randevu_saati', 'hasta_id', 'doktor_id']
 
 
+from django import forms
+from .models import TibbiRaporlar
+
+from django import forms
+from .models import TibbiRaporlar
+
 class RaporForm(forms.ModelForm):
     class Meta:
         model = TibbiRaporlar
-        fields = ['hasta_id','doktor_id','raporTarihi','rapor_icerigi','uzmanlikAlani','randevunun_id']
+        fields = ['hasta_id', 'doktor_id', 'raporTarihi', 'rapor_icerigi', 'uzmanlikAlani', 'randevunun_id']
         widgets = {
             'raporTarihi': forms.DateInput(attrs={'type': 'date'})
         }

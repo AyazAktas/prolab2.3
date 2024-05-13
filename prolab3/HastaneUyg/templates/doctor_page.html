@@ -13,9 +13,10 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 800px; /* Genişliği artırıldı */
             margin: 0 auto;
             padding: 20px;
+            text-align: center; /* İçerik merkez alındı */
         }
 
         h2 {
@@ -32,7 +33,9 @@
             margin-bottom: 20px;
             text-align: center;
             width: 250px;
-            margin: 0 auto; /* Kartı ortala */
+            margin-right: 20px; /* Sağ boşluk eklendi */
+            display: inline-block; /* Kartları yan yana yerleştir */
+            vertical-align: top; /* Kartların üst hizalanması sağlandı */
         }
 
         .card img {
@@ -40,9 +43,6 @@
             height: auto;
             border-radius: 8px;
             margin-bottom: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .card a {
@@ -67,6 +67,10 @@
         <div class="card">
             <img src="{% static 'randevular_resmi.jpg' %}" alt="Randevularım Resmi">
             <a href="{% url 'rapor_yazilabilir' doktor_id=doctor.idDoctor %}">Randevuları Görüntüle</a>
+        </div>
+        <div class="card">
+            <img src="{% static 'raporlar_resmi.jpg' %}" alt="Randevularım Resmi">
+            <a href="{% url 'rapor_duzenle_doctor' doktor_id=doctor.idDoctor %}">Yazdığım Raporlar</a>
         </div>
     </div>
 </body>

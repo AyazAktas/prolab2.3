@@ -7,7 +7,6 @@ from django.shortcuts import redirect, render, get_object_or_404
 from .forms import (DoctorForm, PatientForm, PatientRegistrationForm, RandevuForm)
 from .models import Doctor
 
-
 def home(request):
     return render(request, 'home.html')
 
@@ -458,3 +457,28 @@ def raporlarim_pdf(request, rapor_id):
 
     p.save()
     return response
+
+def rapor_duzenle_doctor(request, doktor_id):
+    raporlar = TibbiRaporlar.objects.filter(doktor_id=doktor_id)
+    return render(request, 'doktorun_yazdigi_raporlar.html', {'raporlar': raporlar})
+
+
+from django.db import connection
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import RaporForm
+
+
+def rapor_duzenle(request, rapor_id):
+    # Düzenlenecek raporun model örneğini al
+    rapor = get_object_or_404(TibbiRaporlar, idRapor=rapor_id)
+    if request.method == 'post':  # Burada 'POST' olarak değiştirildi
+        # Form verilerini ve mevcut rapor verilerini kullanarak form oluştur
+        form = RaporForm(request.POST, instance=rapor)
+        if form.is_valid():
+            # Form verilerini kaydet
+            form.save()
+            return redirect('rapor_duzenle_doctor')  # Düzenleme işlemi tamamlandıktan sonra yönlendirme yap
+    else:
+        # GET isteği olduğunda, mevcut rapor bilgilerini formda göster
+        form = RaporForm(instance=rapor)
+    return render(request, 'rapor_duzenle.html', {'form': form})
