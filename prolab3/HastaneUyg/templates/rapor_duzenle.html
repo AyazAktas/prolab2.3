@@ -1,67 +1,73 @@
+<!-- edit_doctor.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rapor Düzenle</title>
+    <title>Doktor Düzenle</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
         }
 
-        h2 {
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
             text-align: center;
             margin-bottom: 20px;
         }
 
         form {
-            width: 50%;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
         }
 
         label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
+        input[type="text"],
+        select {
+            padding: 10px;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            box-sizing: border-box;
         }
 
-        input[type="submit"] {
-            background-color: #007bff;
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4caf50;
             color: #fff;
             border: none;
             border-radius: 4px;
-            padding: 10px 20px;
             cursor: pointer;
-            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
 
-        input[type="submit"]:hover {
-            background-color: #0056b3;
+        button[type="submit"]:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <h2>Rapor Düzenle</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Kaydet</button>
-    </form>
+    <div class="container">
+        <h1>Doktor Düzenle</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Güncelle</button>
+        </form>
+    </div>
 </body>
 </html>

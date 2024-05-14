@@ -74,17 +74,6 @@ def admin_page(request):
     username = request.user.username
     return render(request, 'admin_page.html', {'username': username})
 
-
-# views.py
-
-from django.shortcuts import render, get_object_or_404
-from .models import Doctor
-from .forms import DoctorForm
-
-# views.py
-
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Doctor
 from .forms import DoctorForm
 
 def edit_doctor(request, doctor_id):
@@ -469,16 +458,13 @@ from .forms import RaporForm
 
 
 def rapor_duzenle(request, rapor_id):
-    # Düzenlenecek raporun model örneğini al
     rapor = get_object_or_404(TibbiRaporlar, idRapor=rapor_id)
-    if request.method == 'post':  # Burada 'POST' olarak değiştirildi
-        # Form verilerini ve mevcut rapor verilerini kullanarak form oluştur
+    if request.method == 'POST':
+        print(request.method)
         form = RaporForm(request.POST, instance=rapor)
         if form.is_valid():
-            # Form verilerini kaydet
             form.save()
-            return redirect('rapor_duzenle_doctor')  # Düzenleme işlemi tamamlandıktan sonra yönlendirme yap
+            return redirect('rapor_duzenle_doctor', doktor_id=rapor.doktor_id)  # doktor_id'yi uygun şekilde temin ettiğinizden emin olun
     else:
-        # GET isteği olduğunda, mevcut rapor bilgilerini formda göster
         form = RaporForm(instance=rapor)
-    return render(request, 'rapor_duzenle.html', {'form': form})
+    return render(request, 'rapor_duzenle.html', {'form': form,'rapor':rapor})

@@ -34,7 +34,7 @@ class Randevu(models.Model):
         db_table = 'randevular'
 class TibbiRaporlar(models.Model):
     idRapor = models.AutoField(primary_key=True)
-    raporTarihi = models.DateField(null=True)
+    raporTarihi = models.DateField("Rapor Tarihi", auto_now_add=False, auto_now=False, blank=True, null=True)
     uzmanlikAlani = models.TextField(null=True)
     hasta_id = models.IntegerField()
     doktor_id = models.IntegerField()
