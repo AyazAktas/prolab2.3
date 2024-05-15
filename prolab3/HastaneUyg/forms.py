@@ -42,12 +42,6 @@ class RandevuForm(forms.ModelForm):
         fields = ['randevuTarihi', 'randevu_saati', 'hasta_id', 'doktor_id']
 
 
-from django import forms
-from .models import TibbiRaporlar
-
-from django import forms
-from .models import TibbiRaporlar
-
 class RaporForm(forms.ModelForm):
     class Meta:
         model = TibbiRaporlar

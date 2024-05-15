@@ -35,10 +35,10 @@ class Randevu(models.Model):
 class TibbiRaporlar(models.Model):
     idRapor = models.AutoField(primary_key=True)
     raporTarihi = models.DateField("Rapor Tarihi", auto_now_add=False, auto_now=False, blank=True, null=True)
-    uzmanlikAlani = models.TextField(null=True)
+    uzmanlikAlani=models.TextField('Uzmanlık Alanı', max_length=120, default='', blank=True, null=True)
     hasta_id = models.IntegerField()
     doktor_id = models.IntegerField()
-    rapor_icerigi = models.TextField(null=True)
+    rapor_icerigi = models.TextField('Rapor İçeriği', max_length=3000, blank=False, null=False)
     randevunun_id = models.IntegerField()
     class Meta:
         db_table = 'tibbiraporlar'

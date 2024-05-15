@@ -49,5 +49,6 @@ urlpatterns = [
     path('edit_patient/<int:hasta_id>/', views.edit_patient, name='edit_patient'),
     path('doktorun_yazdigi_raporlar/<int:doktor_id>/', views.rapor_duzenle_doctor, name='rapor_duzenle_doctor'),
     path('rapor_duzenle/<int:rapor_id>/', views.rapor_duzenle, name='rapor_duzenle'),
+    path('rapor_sil/<int:idRapor>/',views.rapor_sil,name='rapor_sil'),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

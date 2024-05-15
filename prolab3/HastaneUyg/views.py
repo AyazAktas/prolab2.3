@@ -365,9 +365,6 @@ from .models import Randevu, Doctor, TibbiRaporlar
 from .forms import RaporForm
 
 def rapor_yaz(request, randevu_id):
-    """
-    Seçilen randevu için rapor yazma fonksiyonu.
-    """
 
     randevu = get_object_or_404(Randevu, pk=randevu_id)
     doktor_id = randevu.doktor_id
@@ -452,10 +449,6 @@ def rapor_duzenle_doctor(request, doktor_id):
     return render(request, 'doktorun_yazdigi_raporlar.html', {'raporlar': raporlar})
 
 
-from django.db import connection
-from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RaporForm
-
 
 def rapor_duzenle(request, rapor_id):
     rapor = get_object_or_404(TibbiRaporlar, idRapor=rapor_id)
@@ -468,3 +461,10 @@ def rapor_duzenle(request, rapor_id):
     else:
         form = RaporForm(instance=rapor)
     return render(request, 'rapor_duzenle.html', {'form': form,'rapor':rapor})
+
+
+def rapor_sil(request, idRapor):  # argüman adını rapor_id yerine idRapor olarak değiştirdik
+    rapor = get_object_or_404(TibbiRaporlar, idRapor=idRapor)  # argümanı rapor_id yerine idRapor olarak değiştirdik
+    doktor_id = rapor.doktor_id
+    rapor.delete()
+    return redirect('rapor_duzenle_doctor', doktor_id=doktor_id)
