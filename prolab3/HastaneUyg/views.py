@@ -328,12 +328,14 @@ def randevularim(request, hasta_id):
 from django.shortcuts import get_object_or_404, redirect
 from .models import Randevu
 
+from django.shortcuts import get_object_or_404, redirect
+from .models import Randevu
+
 def randevu_sil(request, randevu_id):
     randevu = get_object_or_404(Randevu, randevuId=randevu_id)
     if request.method == 'POST':
         randevu.delete()
         return redirect('randevularim', hasta_id=randevu.hasta_id)
-
 
 
 from django.shortcuts import render, redirect, get_object_or_404
